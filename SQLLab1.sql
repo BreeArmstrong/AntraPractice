@@ -12,45 +12,74 @@ GO
 			ON p.BusinessEntityID = s.BusinessEntityID
 
 -- Write a SELECT statement that lists the name, product number, and color of each product
--- SELECT Name, ProductNumber, Color FROM SalesLT.Product;
 
+	SELECT p.Name, p.ProductNumber, p.Color
+	FROM Production.Product p
 
 -- Write a SELECT statement that lists the customer ID numbers and sales order ID numbers from the SalesLT.SalesOrderHeader table
--- SELECT CustomerID, SalesOrderID FROM SalesLT.SalesOrderHeader;
+
+	SELECT o.CustomerID, o.SalesOrderID
+	FROM Sales.SalesOrderHeader o
 
 -- Write a query that displays all the employees listed in the HumanResources.Employee table who have the job title Research and Development Engineer. Display the business entity ID number, the login ID, and the title for each one
--- SELECT BusinessEntityID, JobTitle, LoginID FROM HumanResources.Employee WHERE JobTitle = 'Research and Development Engineer';
+
+	SELECT p.FirstName, p.LastName, e.JobTitle AS JobTitle
+	FROM HumanResources.Employee e
+		INNER JOIN Person.Person p
+			ON e.BusinessEntityID = p.BusinessEntityID
+	WHERE [JobTitle] = 'Research and Development Engineer'
+
 
 -- Write a query that displays all the names in Person.Person with the middle name J. Display the first, last, and middle names along with the ID numbers
--- SELECT FirstName, MiddleName, LastName, BusinessEntityID FROM Person.Person WHERE MiddleName = 'J';
+
+	SELECT FirstName, MiddleName, LastName, BusinessEntityID
+	FROM Person.Person
+	WHERE [MiddleName] LIKE 'J'
 
 -- Write a query displaying all the columns of the Production.ProductCostHistory table from the rows that were modified on June 17, 2003.
--- SELECT [ProductID] ,[StartDate] ,[EndDate] ,[StandardCost] ,[ModifiedDate] FROM [AdventureWorks2008].[Production].[ProductCostHistory] WHERE ModifiedDate = '2003-06-17';
+-- Please Note, there is no Data before 2012 Or for the month of June 
+
+	SELECT ProductID, StartDate, EndDate, StandardCost, ModifiedDate
+	FROM Production.ProductCostHistory
+	WHERE ModifiedDate IN ('2013-06-17')
 
 -- Write a query that displays all the rows from the Person.Person table where the rows were modified after December 29, 2000. Display the business entity ID number, the name columns, and the modified date.
--- SELECT BusinessEntityID, FirstName, MiddleName, LastName, ModifiedDate
--- FROM Person.Person WHERE ModifiedDate > '2000-12-29';
+	SELECT BusinessEntityID, FirstName, LastName, ModifiedDate
+	FROM Person.Person
+	WHERE ModifiedDate > '2000-12-29'
+	ORDER BY [ModifiedDate]
 
 -- Rewrite the last query so that the rows that were not modified on December 29, 2000, are displayed
--- SELECT BusinessEntityID, FirstName, MiddleName, LastName, ModifiedDate
--- FROM Person.Person WHERE ModifiedDate <> '2000-12-29';
--- 
+	
+	SELECT BusinessEntityID, FirstName, LastName, ModifiedDate
+	FROM Person.Person
+	WHERE ModifiedDate <> '2000-12-29'
+
 
 -- Write a query that displays all the rows from the Person.Person table where the rows were modified during December 2000.
--- SELECT BusinessEntityID, FirstName, MiddleName, LastName, ModifiedDate
--- FROM Person.Person WHERE ModifiedDate BETWEEN '2000-12-01' AND '2000-12-31';
+	SELECT BusinessEntityID, FirstName, LastName, ModifiedDate
+	FROM Person.Person
+	WHERE ModifiedDate BETWEEN '2000-12-01' AND '2000-12-31'
+
 -- Write a query that displays the product ID and name for each product from the Production.Product table with the name starting with Chain.
--- SELECT ProductID, Name FROM Production.Product WHERE Name LIKE 'Chain%'
+	SELECT ProductID, Name
+	FROM Production.Product
+	WHERE Name LIKE 'Chain%'
 
 -- Write a query that displays the products with helmet in the name
--- SELECT ProductID, Name FROM Production.Product WHERE Name LIKE '%helmet%';
+	SELECT ProductID, Name
+	FROM Production.Product
+	WHERE Name LIKE '%helmet%'
 
 -- Change the last query so that the products without helmet in the name are displayed
--- SELECT ProductID, Name FROM Production.Product WHERE Name NOT LIKE '%helmet%';
+	SELECT ProductID, Name
+	FROM Production.Product
+	WHERE Name NOT LIKE '%helmet%'
 
 -- Write a query that displays the business entity ID number, first name, middle name, and last name from the Person.Person table for only those rows that have E or B stored in the middle name column
--- SELECT BusinessEntityID, FirstName, MiddleName, LastName FROM Person.Person
--- WHERE MiddleName LIKE '[E,B]';
+	SELECT BusinessEntityID, FirstName, MiddleName, LastName
+	FROM Person.Person
+	WHERE MiddleName LIKE '[E,B]'
 
 -- Explain the difference between the following two queries: 
 -- SELECT FirstName FROM Person.Person WHERE LastName LIKE 'Ja%es'; 
