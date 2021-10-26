@@ -84,36 +84,56 @@ GO
 -- Explain the difference between the following two queries: 
 -- SELECT FirstName FROM Person.Person WHERE LastName LIKE 'Ja%es'; 
 -- SELECT FirstName FROM Person.Person WHERE LastName LIKE 'Ja_es
--- The first query will return rows with any number of characters replacing the percent sign. The second query will allow only one character to replace the underscore character
+-- The First Query will return something like Jaramies where the name starts with Ja and ends with es, the second one is looking for anything in one specific character slot like James.
 
 -- Write a query displaying the order ID, order date, and total due from the Sales.SalesOrderHeadertable. Retrieve only those rows where the order was placed during the month of September 2001 and the total due exceeded $1,000.
--- SELECT SalesOrderID, OrderDate, TotalDue FROM Sales.SalesOrderHeader WHERE OrderDate BETWEEN '2001-09-01' AND '2001-09-30' AND TotalDue > 1000;
+	SELECT SalesOrderID, OrderDate, TotalDue
+	FROM Sales.SalesOrderHeader
+	WHERE OrderDate BETWEEN '2001-09-01' AND '2001-09-30' AND TotalDue > 1000
 
 -- Write a query displaying the sales orders where the total due exceeds $1,000. Retrieve only those rows where the salesperson ID is 279 or the territory ID is 6
--- SELECT SalesOrderID, OrderDate, TotalDue, SalesPersonID, TerritoryID FROM Sales.SalesOrderHeader WHERE TotalDue > 1000 AND (SalesPersonID = 279 OR TerritoryID = 6);
+	SELECT SalesOrderID, OrderDate, TotalDue, SalesPersonID, TerritoryID
+	FROM Sales.SalesOrderHeader
+	WHERE TotalDue > 1000 AND SalesPersonID = 279 OR TerritoryID = 6
+
 
 -- Write a query displaying the sales orders where the total due exceeds $1,000. Retrieve only those rows where the salesperson ID is 279 or the territory ID is 6 or 4.
--- SELECT SalesOrderID, OrderDate, TotalDue, SalesPersonID, TerritoryID FROM Sales.SalesOrderHeader WHERE TotalDue > 1000 AND (SalesPersonID = 279 OR TerritoryID IN (6,4));
+	SELECT SalesOrderID, OrderDate, TotalDue, SalesPersonID, TerritoryID
+	FROM Sales.SalesOrderHeader
+	WHERE TotalDue > 1000 AND SalesPersonID = 279 OR TerritoryID = 6 OR TerritoryID = 4
+
 -- Write a query displaying the ProductID, Name, and Color columns from rows in the Production.Product table. Display only those rows where no color has been assigned
--- SELECT ProductID, Name, Color FROM Production.Product WHERE Color IS NULL;
+	SELECT ProductID, Name, Color
+	FROM Production.Product
+	WHERE Color IS NULL
 
 -- Write a query displaying the ProductID, Name, and Color columns from rows in the Production.Product table. Display only those rows in which the color is not blue
--- SELECT ProductID, Name, Color FROM Production.Product WHERE Color IS NULL OR Color <> 'Blue';
+	SELECT ProductID, Name, Color
+	FROM Production.Product
+	WHERE Color NOT IN ('blue')
 
 -- Write a query displaying ProductID, Name, Style, Size, and Color from the Production.Producttable. Include only those rows where at least one of the Style, Size, or Color columns contains  a value
--- SELECT ProductID, Name, Style, Size, Color FROM Production.Product WHERE Style IS NOT NULL OR Size IS NOT NULL OR Color IS NOT NULL;
+	SELECT ProductID, Name, Style, Size, Color
+	FROM Production.Product
+	WHERE Style IS NOT NULL OR Size IS NOT NULL OR Color IS NOT NULL
 
 -- Write a query using the Production.ProductReview table. Find all the rows that have the word socks in the Comments column. Return the ProductID and Comments columns.
--- SELECT Comments,ProductID FROM Production.ProductReview WHERE CONTAINS(Comments,'socks');
+	SELECT ProductID, Comments
+	FROM Production.ProductReview
+	WHERE Comments LIKE ('%socks%')
 
 -- Write a query using the Production.Document table. Find all the rows that have the word reflector in any column that is indexed with Full-Text Search. Display the Title and FileName columns
--- SELECT Title,FileName FROM Production.Document WHERE CONTAINS  (*,'reflector');
+	SELECT Title, FileName
+	FROM Production.Document
+	WHERE FileName LIKE ('%reflector%') OR Title LIKE ('%reflector%')
 
 -- Change the previous query so that the rows containing seat are not returned in the results.
 -- SELECT Title, FileName FROM Production.Document WHERE CONTAINS(*,'reflector AND NOT seat')
 
 -- Write a query that returns the business entity ID and name columns from the Person.Persontable. Sort the results by LastName, FirstName, and MiddleName
--- SELECT BusinessEntityID, LastName, FirstName, MiddleName FROM Person.Person ORDER BY LastName, FirstName, MiddleName;
+	SELECT BusinessEntityID, FirstName, MiddleName, LastName
+	FROM Person.Person
+	ORDER BY LastName, FirstName, MiddleName
 
 -- Write a query that displays in the “AddressLine1 (City PostalCode)” format from the Person.Address table
 -- SELECT AddressLine1 + ' (' + City + ' ' + PostalCode + ')' FROM Person.Address;
