@@ -136,10 +136,12 @@ GO
 	ORDER BY LastName, FirstName, MiddleName
 
 -- Write a query that displays in the “AddressLine1 (City PostalCode)” format from the Person.Address table
--- SELECT AddressLine1 + ' (' + City + ' ' + PostalCode + ')' FROM Person.Address;
+	SELECT AddressLine1 + ' (' + City + ' ' + PostalCode + ')' AS "Home Address" 
+	FROM Person.Address;
 
 -- Write a query using the Production.Product table displaying the product ID, color, and name columns. If the color column contains a NULL value, replace the color with No Color.
--- SELECT ProductID, ISNULL(Color,'No Color') AS Color, Name FROM Production.Product;
+	SELECT ProductID, ISNULL(Color, 'No Color'), Name
+	FROM Production.Product
 
 -- Write a query using the Production.Product table displaying a description with the “ProductID: Name” format
 -- SELECT CAST(ProductID AS VARCHAR) + ': ' + Name AS IDName FROM Production.Product;  
