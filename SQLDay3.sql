@@ -91,8 +91,46 @@ GO
     WHERE c.City != o.ShipCity
 
 -- 	List 5 most popular products, their average price, and the customer city that ordered most quantity of it.
-    SELECT TOP 5 Products, AVG(Price), City
-    FROM Customer c
+    SELECT TOP 5 COUNT(ProductID) AS Product, AVG(d.UnitPrice) AS AvgPrice, City
+    FROM Customers c
     INNER JOIN Orders o ON c.CustomerID = o.CustomerID
         INNER JOIN [Order Details] d ON o.OrderID = d.OrderID
-        
+	GROUP BY City
+	ORDER BY COUNT(ProductID) Desc
+
+-- 	List all cities that have never ordered something but we have employees there.
+-- 	Use sub-query
+	SELECT City
+    FROM Employees
+    WHERE EmployeeID IN
+    (
+        SELECT EmployeeID
+        FROM Orders
+		WHERE City != ShipCity
+    )
+
+-- 	Do not use sub-query
+	SELECT City
+    FROM Employees e 
+    INNER JOIN Orders o ON e.EmployeeID = o.EmployeeID
+	WHERE e.City != o.ShipCity
+
+
+-- 	List one city, if exists, that is the city from where the employee sold most orders (not the product quantity) is, and also the city of most total quantity of products ordered from. (tip: join  sub-query)
+	SELECT TOP 1 City, MAX(COUNT(o.OrderID)) AS [Most Orders]
+    FROM Employees e 
+    INNER JOIN Orders o ON e.EmployeeID = o.EmployeeID
+	GROUP BY City 
+	ORDER BY [Most Orders]
+	
+--  How do you remove the duplicates record of a table?
+-- Find duplicates by using row number
+
+
+--  Sample table to be used for solutions below- Employee (empid integer, mgrid integer, deptid integer, salary money) Dept (deptid integer, deptname varchar(20))
+
+--  Find employees who do not manage anybody.
+
+--  Find departments that have maximum number of employees. (solution should consider scenario having more than 1 departments that have maximum number of employees). Result should only have - deptname, count of employees sorted by deptname.
+
+--  Find top 3 employees (salary based) in every department. Result should have deptname, empid, salary sorted by deptname and then employee with high to low salary.

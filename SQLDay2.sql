@@ -111,11 +111,19 @@ GO
 	GROUP BY [OrderDate], ProductID
 	HAVING YEAR([OrderDate]) BETWEEN (2021 - 25) AND 2021
 -- List top 5 locations (Zip Code) where the products sold most.
+
 -- List top 5 locations (Zip Code) where the products sold most in last 25 years.
---  List all city names and number of customers in that city.     
+
+--  List all city names and number of customers in that city. 
+    
 -- List city names which have more than 2 customers, and number of customers in that city 
+
 -- List the names of customers who placed orders after 1/1/98 with order date.
+
 -- List the names of all customers with most recent order dates 
+
 -- Display the names of all customers  along with the  count of products they bought 
+
 -- Display the customer ids who bought more than 100 Products with count of products.
+
 -- List all of the possible ways that suppliers can ship their products. Display the results as below

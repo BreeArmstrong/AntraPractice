@@ -144,7 +144,7 @@ GO
 	FROM Production.Product
 
 -- Write a query using the Production.Product table displaying a description with the “ProductID: Name” format
--- SELECT CAST(ProductID AS VARCHAR) + ': ' + Name AS IDName FROM Production.Product;  
+                             
 
 -- Write a query using the Sales.SpecialOffer table. Display the difference between the MinQty and MaxQty columns along with the SpecialOfferID and Description columns.
 -- SELECT SpecialOfferID, Description, MaxQty - MinQty AS Diff FROM Sales.SpecialOffer;
